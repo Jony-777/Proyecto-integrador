@@ -1,0 +1,111 @@
+
+================================================================================
+1. Primeros 10 registros
+================================================================================
+                                      title   brand          model transmission       fuel_type         price  year_of_manufacture energy_capacity kilometers_run  car_age
+0  Toyota Corolla CR 13.REG 1999.MODEL 1996  Toyota        Corolla    Automatic     CNG, Octane    Tk 530,000                 1996        1,500 cc      89,000 km       30
+1                 Toyota Corolla Cross 2023  Toyota  Corolla Cross    Automatic  Hybrid, Octane  Tk 5,500,000                 2025        1,800 cc      15,500 km        1
+2     Toyota RAV4 CR 13.REG 2011.MODEL 2005  Toyota           RAV4    Automatic     Octane, LPG  Tk 1,370,000                 2005        1,800 cc      87,000 km       21
+3   Toyota Allion CR 23.REG 2010.MODEL 2004  Toyota         Allion    Automatic     CNG, Octane  Tk 1,350,000                 2004        1,500 cc      89,000 km       22
+4                         Toyota Hiace 2015  Toyota          Hiace    Automatic     CNG, Octane  Tk 2,750,000                 2020        2,000 cc     190,000 km        6
+5                      Toyota Premio F 2014  Toyota         Premio    Automatic          Octane  Tk 2,480,000                 2014        1,500 cc      63,000 km       12
+6                       Toyota Axio EX 2020  Toyota           Axio    Automatic          Octane  Tk 2,400,000                 2020        1,500 cc      50,868 km        6
+7                          Toyota Axio 2017  Toyota           Axio    Automatic  Hybrid, Octane  Tk 2,000,000                 2023        1,500 cc      86,000 km        3
+8                        Toyota Axio X 2013  Toyota           Axio    Automatic          Octane  Tk 1,670,000                 2013        1,500 cc      64,000 km       13
+9    Toyota Fielder G Edition Top Trim 2007  Toyota        Fielder    Automatic          Octane  Tk 1,320,000                 2007        1,500 cc     290,000 km       19
+
+================================================================================
+2. Dimensiones del dataset
+================================================================================
+Registros (filas): 5,997
+Variables (columnas): 10
+
+================================================================================
+3. Columnas y tipos de datos
+================================================================================
+                    tipo_de_dato  valores_unicos
+title                        str            4656
+brand                        str              33
+model                        str             168
+transmission                 str               2
+fuel_type                    str              35
+price                        str             893
+year_of_manufacture        int64              38
+energy_capacity              str              68
+kilometers_run               str            2833
+car_age                    int64              38
+
+Nota: price, energy_capacity y kilometers_run son texto con unidades ('Tk 530,000', '1,500 cc', '89,000 km'); se convierten a número en src/analysis.py (prepare_data).
+
+================================================================================
+4. Valores nulos por columna
+================================================================================
+title                  0
+brand                  0
+model                  0
+transmission           0
+fuel_type              0
+price                  0
+year_of_manufacture    0
+energy_capacity        0
+kilometers_run         0
+car_age                0
+
+================================================================================
+5. Registros duplicados
+================================================================================
+Duplicados exactos: 0
+
+================================================================================
+6. Estadísticas descriptivas (columnas numéricas originales)
+================================================================================
+       year_of_manufacture  car_age
+count             5,997.00 5,997.00
+mean              2,017.82     8.18
+std                   5.89     5.89
+min               1,961.00     0.00
+25%               2,018.00     5.00
+50%               2,020.00     6.00
+75%               2,021.00     8.00
+max               2,026.00    65.00
+
+================================================================================
+7. Estadísticas descriptivas de las variables del modelo (ya convertidas)
+================================================================================
+          precio_bdt  antiguedad_anios  kilometraje_km  motor_cc
+count       5,997.00          5,997.00        5,997.00  5,997.00
+mean    4,076,050.26              8.18       65,653.86  1,782.56
+std     4,973,530.11              5.89       47,395.80    384.97
+min        46,189.00              0.00            0.00     50.00
+25%     2,349,999.00              5.00       43,000.00  1,500.00
+50%     3,380,000.00              6.00       63,545.00  1,800.00
+75%     4,400,000.00              8.00       83,170.00  2,000.00
+max   105,000,000.00             65.00      950,000.00  5,700.00
+
+================================================================================
+8. Variables categóricas principales
+================================================================================
+Marcas con más anuncios (top 5, % del total):
+brand
+Toyota       88.49
+Honda         4.22
+Nissan        2.35
+Mitsubishi    1.25
+Lexus         0.80
+
+Transmisión:
+transmission
+Automatic    5937
+Manual         60
+
+================================================================================
+9. Variables seleccionadas para el agrupamiento y justificación
+================================================================================
+- price (precio_bdt): refleja el valor de mercado del vehículo.
+- car_age (antigüedad): indica qué tan nuevo es el vehículo; se usa en lugar
+  de year_of_manufacture para no duplicar la misma información.
+- kilometers_run (kilometraje): mide el uso o desgaste del vehículo.
+- energy_capacity (motor_cc): distingue vehículos compactos de los más grandes.
+Son numéricas, comparables entre marcas y describen valor y desgaste.
+Las variables categóricas (marca, transmisión, combustible) se usan como
+filtros del dashboard.

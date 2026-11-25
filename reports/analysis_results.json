@@ -1,0 +1,238 @@
+{
+  "dataset": {
+    "archivo": "UsedCarInfo.csv",
+    "registros": 5997,
+    "columnas_origen": [
+      "title",
+      "brand",
+      "model",
+      "transmission",
+      "fuel_type",
+      "price",
+      "year_of_manufacture",
+      "energy_capacity",
+      "kilometers_run",
+      "car_age"
+    ],
+    "marcas_distintas": 33,
+    "fuente": "Mendeley Data, Md Saikot Hossain, DOI 10.17632/8d38h82fyt.2",
+    "licencia": "CC BY 4.0"
+  },
+  "limpieza": {
+    "rows_original": 5997,
+    "rows_after_cleaning": 5997,
+    "columns_original": 10,
+    "duplicates_removed": 0,
+    "missing_values_before": {
+      "title": 0,
+      "brand": 0,
+      "model": 0,
+      "transmission": 0,
+      "fuel_type": 0,
+      "price": 0,
+      "year_of_manufacture": 0,
+      "energy_capacity": 0,
+      "kilometers_run": 0,
+      "car_age": 0
+    },
+    "missing_values_after": {
+      "title": 0,
+      "brand": 0,
+      "model": 0,
+      "transmission": 0,
+      "fuel_type": 0,
+      "price": 0,
+      "year_of_manufacture": 0,
+      "energy_capacity": 0,
+      "kilometers_run": 0,
+      "car_age": 0
+    },
+    "capacity_values_recovered_from_embedded_text": 1,
+    "iqr_outlier_counts_retained": {
+      "price_bdt": 429,
+      "car_age": 1008,
+      "kilometers_numeric": 136,
+      "engine_cc": 109
+    },
+    "implied_listing_years": [
+      2026
+    ]
+  },
+  "variables_modelo": [
+    "price_bdt",
+    "car_age",
+    "kilometers_numeric",
+    "engine_cc"
+  ],
+  "transformaciones": [
+    "Conversión de precio, kilometraje y capacidad de motor a valores numéricos.",
+    "Extracción del valor seguido por cc para recuperar capacidad malformada.",
+    "Transformación log1p para reducir la influencia de asimetrías y valores extremos.",
+    "Estandarización StandardScaler después de aplicar log1p.",
+    "No se eliminaron valores atípicos válidos detectados con la regla IQR."
+  ],
+  "parametros": {
+    "algoritmo": "KMeans",
+    "random_state": 42,
+    "n_init": 20,
+    "k_evaluados": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "silhouette_sample_size": 2000,
+    "seleccion_k": "Mayor silhouette en la muestra fija; inercia se presenta como apoyo."
+  },
+  "evaluacion_k": [
+    {
+      "k": 2,
+      "inertia": 16747.11700981543,
+      "silhouette": 0.42194209149177647,
+      "davies_bouldin": 0.8957135773450974
+    },
+    {
+      "k": 3,
+      "inertia": 11899.878016117698,
+      "silhouette": 0.46242872915389327,
+      "davies_bouldin": 0.7721672716783251
+    },
+    {
+      "k": 4,
+      "inertia": 9201.600282455363,
+      "silhouette": 0.45107197292969126,
+      "davies_bouldin": 0.8749784988764058
+    },
+    {
+      "k": 5,
+      "inertia": 7576.783616527134,
+      "silhouette": 0.3787880240022342,
+      "davies_bouldin": 0.8996536075006567
+    },
+    {
+      "k": 6,
+      "inertia": 6682.910754856008,
+      "silhouette": 0.38924678011551367,
+      "davies_bouldin": 0.9017657557481175
+    }
+  ],
+  "k_seleccionado": 3,
+  "metricas_finales": {
+    "k": 3,
+    "inertia": 11899.878016117698,
+    "silhouette": 0.46242872915389327,
+    "davies_bouldin": 0.7721672716783251
+  },
+  "comparacion_modelos": {
+    "modelo_seleccionado": {
+      "k": 3,
+      "silhouette": 0.46242872915389327,
+      "inertia": 11899.878016117698,
+      "davies_bouldin": 0.7721672716783251,
+      "tamanos": [
+        1152,
+        4693,
+        152
+      ]
+    },
+    "modelo_referencia": {
+      "k": 2,
+      "silhouette": 0.42194209149177647,
+      "inertia": 16747.11700981543,
+      "davies_bouldin": 0.8957135773450974,
+      "tamanos": [
+        4816,
+        1181
+      ]
+    },
+    "interpretacion": "K=3 obtuvo silhouette 0.4624 frente a 0.4219 con K=2 (diferencia +0.0405). La inercia pasó de 16,747.12 a 11,899.88 y los tamaños de grupo fueron [4816, 1181] frente a [1152, 4693, 152]. K seleccionado maximiza silhouette entre los valores probados; la distribución desigual de tamaños debe tenerse en cuenta al usar los perfiles."
+  },
+  "perfiles_clusters": [
+    {
+      "cluster": 0,
+      "registros": 1152,
+      "precio_mediano_bdt": 1395000.0,
+      "precio_promedio_bdt": 1447564.3871527778,
+      "antiguedad_mediana": 18.0,
+      "antiguedad_promedio": 18.32638888888889,
+      "kilometraje_mediano": 78000.0,
+      "kilometraje_promedio": 85224.21267361111,
+      "motor_mediano_cc": 1500.0,
+      "motor_promedio_cc": 1594.959201388889,
+      "porcentaje": 19.209604802401202,
+      "nombre": "Precio bajo, mayor antigüedad y mayor recorrido (C1)"
+    },
+    {
+      "cluster": 1,
+      "registros": 4693,
+      "precio_mediano_bdt": 3640000.0,
+      "precio_promedio_bdt": 4320042.238653313,
+      "antiguedad_mediana": 6.0,
+      "antiguedad_promedio": 5.872150010654166,
+      "kilometraje_mediano": 58748.0,
+      "kilometraje_promedio": 62966.61133603239,
+      "motor_mediano_cc": 1800.0,
+      "motor_promedio_cc": 1817.9769870019177,
+      "porcentaje": 78.25579456394864,
+      "nombre": "Precio intermedio, más recientes y menor recorrido (C2)"
+    },
+    {
+      "cluster": 2,
+      "registros": 152,
+      "precio_mediano_bdt": 6300000.0,
+      "precio_promedio_bdt": 16463953.94736842,
+      "antiguedad_mediana": 1.5,
+      "antiguedad_promedio": 2.7171052631578947,
+      "kilometraje_mediano": 14.5,
+      "kilometraje_promedio": 299.9078947368421,
+      "motor_mediano_cc": 1800.0,
+      "motor_promedio_cc": 2110.7039473684213,
+      "porcentaje": 2.5346006336501583,
+      "nombre": "Precio alto, más recientes y menor recorrido (C3)"
+    }
+  ],
+  "centroides_retransformados": [
+    {
+      "cluster": 0,
+      "price_bdt": 1308816.9523545904,
+      "car_age": 17.415828588360192,
+      "kilometers_numeric": 76579.17583513178,
+      "engine_cc": 1562.5834463651602,
+      "nombre": "Precio bajo, mayor antigüedad y mayor recorrido (C1)"
+    },
+    {
+      "cluster": 1,
+      "price_bdt": 3826092.0994390906,
+      "car_age": 5.664850482263631,
+      "kilometers_numeric": 52772.67846439131,
+      "engine_cc": 1788.7551293734407,
+      "nombre": "Precio intermedio, más recientes y menor recorrido (C2)"
+    },
+    {
+      "cluster": 2,
+      "price_bdt": 9152279.88477392,
+      "car_age": 2.074326592096931,
+      "kilometers_numeric": 24.35325027259293,
+      "engine_cc": 2009.3534909023208,
+      "nombre": "Precio alto, más recientes y menor recorrido (C3)"
+    }
+  ],
+  "hallazgos": [
+    "El grupo más numeroso es Precio intermedio, más recientes y menor recorrido (C2): 4,693 vehículos (78.3% del dataset). El menor es Precio alto, más recientes y menor recorrido (C3) con 152 (2.5%).",
+    "Las medianas de precio van de 1,395,000 BDT en Precio bajo, mayor antigüedad y mayor recorrido (C1) a 6,300,000 BDT en Precio alto, más recientes y menor recorrido (C3).",
+    "La mediana global es de 6.0 años de antigüedad y 63,545 km; los perfiles por clúster permiten comparar su combinación con el precio."
+  ],
+  "recomendaciones": [
+    "Usar los rangos de precio observados por grupo como referencia descriptiva al explorar anuncios similares a Precio bajo, mayor antigüedad y mayor recorrido (C1) y Precio alto, más recientes y menor recorrido (C3); no tratarlos como una tasación.",
+    "Priorizar una revisión individual de antigüedad y kilometraje antes de comparar vehículos: las medianas por segmento describen el conjunto, no el estado mecánico de cada unidad.",
+    "Al ampliar el análisis, recolectar más anuncios de marcas actualmente menos representadas y conservar la moneda y procedencia para evaluar si los perfiles se mantienen."
+  ],
+  "limitaciones": [
+    "Los anuncios describen un mercado y una fuente concretos; no representan todos los vehículos usados.",
+    "La distribución de marcas está concentrada y puede sesgar la generalización.",
+    "El precio es una de las variables de segmentación, por lo que los segmentos no son una predicción independiente del precio.",
+    "K-Means favorece grupos aproximadamente compactos y depende de la escala, las variables y K elegidos.",
+    "La silhouette se calcula en una muestra reproducible de hasta 2,000 filas para controlar el costo computacional."
+  ]
+}
